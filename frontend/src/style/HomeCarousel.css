@@ -1,0 +1,26 @@
+.carousel{
+    margin-top: 58px;
+}
+
+.carousel-caption h3{
+    text-decoration: none;
+    font-size: 1.9rem;
+    font-weight: normal;
+    color:white;
+    text-align: center;
+}
+
+.carousel-item{
+    
+}
+
+.carousel-item image{
+    object-fit: cover;
+        object-position: center;
+        height: 50vh;
+        overflow: hidden;
+}
+/* .carousel-caption h3:hover{
+    color: white;
+} */
+

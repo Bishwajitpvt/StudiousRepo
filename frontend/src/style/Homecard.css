@@ -1,0 +1,32 @@
+.card_container{
+    background-color: #0C243C;
+    align-items: center;
+}
+
+.card_header{
+    padding-top: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2.3rem;
+}
+
+.card_header h1{
+    color: white;
+    font-size: 2.3rem;
+}
+
+.row{
+    margin: 0!important;
+    padding-bottom: 1rem;
+}
+
+.card-img-top {
+    padding: 8px;
+    border-radius: 6% !important;
+}
+
+/* .btn{
+    text-decoration: none;
+    background-color: white;
+    color: #0C243C;
+} */

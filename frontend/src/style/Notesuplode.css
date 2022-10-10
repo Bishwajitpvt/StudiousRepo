@@ -1,0 +1,41 @@
+.notes_uplode_body {
+    margin-top: 70px;
+}
+
+.main_container {
+    padding: 0rem !important;
+}
+
+.ntup_header{
+    margin: 1.3rem;
+}
+
+.uplode_card {
+    margin: 2rem;
+    padding: 0 1rem;
+}
+
+.uplode_form {
+    padding: 10px;
+}
+
+.radio_grp{
+    margin: 1rem 0 1.5rem 0;
+    text-align: center;
+}
+
+.form-check{
+    padding: 2px;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.form-check-input{
+    float: none !important;
+    margin-right: 1.5rem;
+}
+
+.form-check-label{
+    padding: 2px;
+    text-decoration: none;
+}

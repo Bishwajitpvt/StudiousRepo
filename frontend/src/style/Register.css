@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif
+}
+
+.sign-body {
+    background-color: #161623;
+    /* margin-top: 58px; */
+}
+
+.container {
+    position: relative;
+    z-index: 100;
+}
+
+.container .row .card {
+    width: 100%;
+    height: auto;
+    margin: 37px;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    cursor: pointer
+}
+
+.container .row .card .card-body {
+    padding: 1rem 1.2rem;
+    color: #fff
+}
+
+.container .row .card .card-body .card-img img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    transform: translateY(50px);
+    transition: 0.5s;
+    border-radius: 50%
+}
+
+.container .row .card .card-body .name {
+    transform: translateY(218px);
+    transition: 0.5s
+}
+
+.container .row .card .card-body .testimonial {
+    font-size: 0.9rem;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: 0.5s;
+    opacity: 0
+}
+
+.container .row .card:hover .card-body .testimonial,
+.container .row .card:hover .card-body .name,
+.container .row .card:hover .card-body .card-img img {
+    transform: translateY(0px);
+    opacity: 1
+}
+
+.d-flex {
+    display: flex;
+    width: auto;
+    max-width: auto;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+hr {
+    border-top: 1px solid rgb(255 255 255);
+}
