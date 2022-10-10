@@ -20,9 +20,22 @@
     padding-bottom: 1rem;
 }
 
+.card-body{
+    opacity: 80%;
+}
+
 .card-img-top {
     padding: 8px;
     border-radius: 6% !important;
+}
+
+.car-title{
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-size: 2rem;
+    font-weight: normal;
+    opacity: 100%!important;
 }
 
 /* .btn{
