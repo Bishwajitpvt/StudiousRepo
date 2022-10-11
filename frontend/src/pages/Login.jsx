@@ -1,39 +1,83 @@
 import React from "react";
 import { Row, Col, Container } from 'react-bootstrap';
+import '../style/Login.css';
+
+import { useContext } from "react";
+import CurrentUserContext from "../context/LoggedInUser/CurrentUserContext";
+
 
 const Login = () => {
+
+
+    const currentUser = useContext(CurrentUserContext);
+    console.log(currentUser);
+
+    const handleOnSubmit = async (event) => {
+        event.preventDefault();
+
+        const { email, password, } = event.target;
+        const loginResponse = await fetch("http://localhost:3000/sign-in", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: 'include',
+
+            body: JSON.stringify({
+                Email: email.value,
+                Password: password.value
+            })
+        });
+
+
+        if (loginResponse.status === 200) {
+            const ResJson = await loginResponse.json();
+            console.log(ResJson);
+            currentUser.setState(ResJson);
+            window.location = "/community";
+        } else {
+            const resJson = await loginResponse.json();
+            for (var error in resJson.error) {
+                const span = document.querySelector(`.${error}.error`);
+                span.innerHTML = resJson.error[error];
+            }
+            // alert(ResJson.error);
+            console.log(resJson);
+        }
+    }
+
     return (
-        <div className='mt-5 sign-body'>
+        <div className='loginBody'>
             <Container>
                 <Row>
                     <Col>
-                        <div class="col-lg-6 d-flex justify-content-center">
+                        <div class="col-lg-6 d-flex mt-5 justify-content-center">
                             <div class="card">
                                 <div class="card-body text-center">
-                                    <form>
+                                    <form onSubmit={handleOnSubmit}>
                                         <h4>Sign In
                                             {/* <br /><small class="text-muted">Studious Repo Community.</small> */}
                                         </h4>
                                         <hr />
-                                        
+
                                         <div className="mb-3">
-                                            <label>Email address</label>
+                                            <label className="mb-2">Email address</label>
                                             <input
+                                                name="email"
                                                 type="email"
                                                 className="form-control"
                                                 placeholder="Enter email"
                                             />
                                         </div>
                                         <div className="mb-3">
-                                            <label>Password</label>
+                                            <label className="mb-2">Password</label>
                                             <input
+                                                name="password"
                                                 type="password"
                                                 className="form-control"
                                                 placeholder="Enter password"
                                                 size="8"
                                             />
                                         </div>
-                                       
+
 
 
                                         <div className="d-grid">
@@ -41,10 +85,13 @@ const Login = () => {
                                                 Sign In
                                             </button>
                                         </div>
-                                        <p className="signin text-center"><hr />
-                                            Already registered <a href="/sign-in">sign up?</a>
+                                        <p className="signup_txt text-center"><hr />
+                                            Already registered ??<a href="/sign-up" className="ms-2">sign up</a>
                                         </p>
-                                        <h6 className="forgot-password text-center"><a href="/forgot-password">Forgot Password</a></h6>
+                                        <p className="signup_txt text-center">
+                                            <a href="/forgot-password">Forgot Password</a>
+                                        </p>
+
                                     </form>
                                 </div>
                             </div>

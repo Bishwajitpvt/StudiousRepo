@@ -1,8 +1,55 @@
 import React from "react";
 import { Row, Col, Container } from 'react-bootstrap';
 import '../style/Register.css';
+// import { useState } from "react";
 
-const Register = () => {
+const Register = (props) => {
+
+    const handlesubmit = async (event) => {
+        event.preventDefault();
+
+        const {
+            first_name,
+            last_name,
+            email,
+            password,
+            confirm_password
+        } = event.target;
+
+        // store form input value into form data
+        const data = new FormData();
+        data.append("first_name", first_name.value);
+        data.append("last_name", last_name.value);
+        data.append("email", email.value);
+        data.append("password", password.value);
+        data.append("confirm_password", confirm_password.value);
+
+        // checking
+        const response = await fetch("http://localhost:3000/sign-up", {
+            method: "POST",
+            credentials: 'include',
+            body: data
+        });
+
+        if (response.status === 200) {
+            const resJson = await response.json();
+            alert("Successfully Registered");
+            console.log("Response: ");
+            console.log(resJson);
+
+        } else {
+            const resJson = await response.json();
+            for (var error in resJson.error) {
+                const span = document.querySelector(`.${error}.error`);
+                span.innerHTML = resJson.error[error];
+            }
+            console.log(resJson.error);
+        }
+
+    }
+
+
+
     return (
 
         <div className='mt-5 sign-body'>
@@ -12,22 +59,26 @@ const Register = () => {
                         <div class="col-lg-4 d-flex justify-content-center">
                             <div class="card">
                                 <div class="card-body text-center">
-                                    <form>
+                                    <form onSubmit={handlesubmit}>
                                         <h4>Sign Up
                                         </h4>
                                         <hr />
                                         <div className="mb-3">
                                             <label>First name</label>
                                             <input
-                                                id="first-name"
-                                                type="text"
+                                                name="first_name"
+                                                type={"text"}
                                                 className="form-control"
                                                 placeholder="First name"
                                             />
                                         </div>
                                         <div className="mb-3">
                                             <label>Last name</label>
-                                            <input type="text" className="form-control" placeholder="Last name" />
+                                            <input
+                                                name="last_name"
+                                                type={"text"}
+                                                className="form-control"
+                                                placeholder="Last name" />
                                         </div>
                                         {/* <div className="mb-3">
                                                 <lable>Select Department</lable>
@@ -42,7 +93,8 @@ const Register = () => {
                                         <div className="mb-3">
                                             <label>Email address</label>
                                             <input
-                                                type="email"
+                                                name="email"
+                                                type={"email"}
                                                 className="form-control"
                                                 placeholder="Enter email"
                                             />
@@ -50,7 +102,8 @@ const Register = () => {
                                         <div className="mb-3">
                                             <label>Password</label>
                                             <input
-                                                type="password"
+                                                name="password"
+                                                type={"password"}
                                                 className="form-control"
                                                 placeholder="Enter password"
                                                 size="8"
@@ -59,7 +112,8 @@ const Register = () => {
                                         <div className="mb-3">
                                             <label>Confirm Password</label>
                                             <input
-                                                type="password"
+                                                name="confirm_password"
+                                                type={"password"}
                                                 className="form-control"
                                                 placeholder="Enter confirm password"
                                                 size="8"

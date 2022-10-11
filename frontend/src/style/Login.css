@@ -1,0 +1,29 @@
+.loginBody {
+    background-color: #161623;
+    height: 100vh;
+    margin: 0;
+}
+
+.card{
+    position: relative;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.signup_txt a {
+    text-decoration: none;
+    text-shadow: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    
+}
+
+.signup_txt a:hover {
+    /* background: -webkit-linear-gradient(#02aab0,#00cdac); */
+    /* #d66d75 → #e29587 */
+    background:
+    -webkit-linear-gradient(#d66d75, #e29587);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
