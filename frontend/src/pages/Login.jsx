@@ -16,7 +16,7 @@ const Login = () => {
         event.preventDefault();
 
         const { email, password, } = event.target;
-        const loginResponse = await fetch("http://localhost:3000/sign-in", {
+        const loginResponse = await fetch("http://localhost:3001/sign-in", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: 'include',

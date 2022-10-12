@@ -25,7 +25,7 @@ const Register = (props) => {
         data.append("confirm_password", confirm_password.value);
 
         // checking
-        const response = await fetch("http://localhost:3000/sign-up", {
+        const response = await fetch("http://localhost:3001/sign-up", {
             method: "POST",
             credentials: 'include',
             body: data
