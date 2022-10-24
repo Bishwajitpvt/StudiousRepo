@@ -16,19 +16,18 @@ const Register = (props) => {
             confirm_password
         } = event.target;
 
-        // store form input value into form data
-        const data = new FormData();
-        data.append("first_name", first_name.value);
-        data.append("last_name", last_name.value);
-        data.append("email", email.value);
-        data.append("password", password.value);
-        data.append("confirm_password", confirm_password.value);
 
         // checking
         const response = await fetch("http://localhost:3001/sign-up", {
             method: "POST",
-            credentials: 'include',
-            body: data
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({
+                first_name: first_name.value,
+                last_name: last_name.value,
+                email: email.value,
+                password: password.value,
+                confirm_password: confirm_password.value
+            })
         });
 
         if (response.status === 200) {
@@ -39,10 +38,8 @@ const Register = (props) => {
 
         } else {
             const resJson = await response.json();
-            for (var error in resJson.error) {
-                const span = document.querySelector(`.${error}.error`);
-                span.innerHTML = resJson.error[error];
-            }
+            console.log(resJson.error.message);
+            alert(resJson.error.message);
             console.log(resJson.error);
         }
 

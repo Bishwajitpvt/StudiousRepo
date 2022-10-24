@@ -2,15 +2,14 @@ import React from "react";
 import { Row, Col, Container } from 'react-bootstrap';
 import '../style/Login.css';
 
-import { useContext } from "react";
-import CurrentUserContext from "../context/LoggedInUser/CurrentUserContext";
+// import { useContext } from "react";
+// import CurrentUserContext from "../context/LoggedInUser/CurrentUserContext";
 
 
 const Login = () => {
 
-
-    const currentUser = useContext(CurrentUserContext);
-    console.log(currentUser);
+// const currentUser = useContext(CurrentUserContext);
+    // console.log(currentUser);
 
     const handleOnSubmit = async (event) => {
         event.preventDefault();
@@ -19,11 +18,10 @@ const Login = () => {
         const loginResponse = await fetch("http://localhost:3001/sign-in", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            credentials: 'include',
 
             body: JSON.stringify({
-                Email: email.value,
-                Password: password.value
+                email: email.value,
+                password: password.value
             })
         });
 
@@ -31,16 +29,13 @@ const Login = () => {
         if (loginResponse.status === 200) {
             const ResJson = await loginResponse.json();
             console.log(ResJson);
-            currentUser.setState(ResJson);
-            window.location = "/community";
+            alert("Logged In");
+            // currentUser.setState(ResJson);
+            // window.location = "/community";
         } else {
             const resJson = await loginResponse.json();
-            for (var error in resJson.error) {
-                const span = document.querySelector(`.${error}.error`);
-                span.innerHTML = resJson.error[error];
-            }
-            // alert(ResJson.error);
-            console.log(resJson);
+            console.log(resJson.error);
+            alert(resJson.error);
         }
     }
 
