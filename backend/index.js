@@ -1,24 +1,25 @@
-import express from "express";
+import express, { json } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import UserModel from "./models/UserModel.js";
+import multer from "multer";
+import { fileURLToPath } from 'url';
+import path from "path"
+import { dirname } from "path";
+import NotesUploadModel from "./models/NotesUploadModel.js";
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = dirname(__filename);
+
 
 const app = express();
-
-//  database connection
-const url = "mongodb+srv://Bishwajit:bishwajitsam@studiousrepo.z4evxkf.mongodb.net/?retryWrites=true&w=majority";
-
-const connectionParams = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}
-
-const PORT = 3001;
+app.use("/public", express.static(path.join(__dirname, '/public')));
 app.use(cors());
-
 app.use(express.json());
+// app.use(express.urlencoded({ extended: true }))
 
-// AuthRoute.js => 
+
+// ------------------------ Authentication ---------------------------------------------
 
 app.post("/sign-up", async (req, res) => {
     const { first_name, last_name, email, password } = req.body;
@@ -29,6 +30,7 @@ app.post("/sign-up", async (req, res) => {
             const User = await UserModel.create({ first_name, last_name, email, password });
             console.log(User);
             res.status(200).json(User);
+            // res.redirect("/sign-in");
         } else {
             res.status(400).json({ error: "Email Already Exists" });
         }
@@ -53,7 +55,61 @@ app.post("/sign-in", async (req, res) => {
     } catch (error) {
         res.status({ error: error });
     }
+});
+// --------------------------------- Note Upload---------------------------------
+var noteStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/notes')
+    },
+    filename: function (req, file, cb) {
+        console.log("Inside multer", req.body);
+        cb(null, req.body.fileName + Date.now() + path.extname(file.originalname))
+    }
 })
+const noteUpload = multer({ storage: noteStorage })
+
+app.post("/noteUpload", noteUpload.single("uploadFile"), async (req, res) => {
+    console.log("Incoming Request");
+    try {
+        const { UserID, fileName, description } = req.body;
+        const uploadFile = req.file ? `${req.protocol}://${req.get('host')}/${req.file.path}` : "";;
+        const note = await NotesUploadModel.create({ UserID, fileName, description, uploadFile });
+        if (note) {
+            res.status(200).json(note);
+        } else {
+            throw "Error Occured while uploading file"
+        }
+    } catch (error) {
+        console.log("/noteUpload", error);
+        res.status(400).json(error);
+    }
+
+})
+
+app.get("/allNotes", async (req, res) => {
+    try {
+        const NoteArray = await NotesUploadModel.find({});
+        if (NoteArray) {
+            res.status(200).json(NoteArray);
+        } else {
+            throw "something went wrong while fetching notes";
+        }
+    } catch (error) {
+        console.log("/allNotes", error);
+        res.status(400).json(error);
+    }
+});
+
+
+//  ------------------ database connection -----------------------------------------
+const PORT = 3001;
+
+const url = "mongodb+srv://Bishwajit:bishwajitsam@studiousrepo.z4evxkf.mongodb.net/?retryWrites=true&w=majority";
+
+const connectionParams = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}
 
 
 mongoose.connect(url, connectionParams)

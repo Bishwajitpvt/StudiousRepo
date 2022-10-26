@@ -10,10 +10,46 @@ import '../style/Notesuplode.css';
 
 const NotesUplode = () => {
 
+    function extractCookieByName(name, cookie){
+        let cookieArray = cookie.split("; ");
+        let fliteredArray  = cookieArray.filter(ck => ck.indexOf(name) >= 0);
+        let keyValue = fliteredArray[0].split("=");
+        return keyValue[1];
+    }
+
+    const loggedInUser = JSON.parse(extractCookieByName("loggedIn", document.cookie));
+    console.log(loggedInUser);
     // to roll back to previous page ------------------------------
     let navigate = useNavigate();
     function handleClick() {
         navigate(-1)
+    }
+
+    const handleOnSubmit = async (event) => {
+        event.preventDefault();
+        alert("working")
+        const {
+            fileName,
+            description,
+            uploadFile
+        } = event.target;
+
+        const data = new FormData();
+        data.append("UserID", loggedInUser._id);
+        data.append("fileName", fileName.value);
+        data.append("description", description.value);
+        data.append("uploadFile", uploadFile.files[0]);
+        try {
+            const fetchResponse = await fetch("http://localhost:3001/noteUpload", {
+                method: "POST",
+                body: data
+            });
+            const jsonResponse = await fetchResponse.json();
+            console.log(jsonResponse);
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
     return (
@@ -38,16 +74,14 @@ const NotesUplode = () => {
                     </Container>
 
 
-
-
                     {/* form uplode */}
-                    <Form className="uplode_form">
+                    <Form onSubmit={handleOnSubmit} className="uplode_form">
                         <Row>
                             <Col>
                                 <Form.Label>File Name</Form.Label>
                             </Col>
                             <Col xs={8}>
-                                <Form.Control type="text" placeholder="Enter file name" />
+                                <Form.Control type="text" name="fileName" placeholder="Enter file name" />
                             </Col>
                         </Row>
 
@@ -56,7 +90,7 @@ const NotesUplode = () => {
                                 <Form.Label>Description</Form.Label>
                             </Col>
                             <Col xs={8}>
-                                <Form.Control type="text" placeholder="Enter file description" />
+                                <Form.Control type="text" name="description" placeholder="Enter file description" />
                             </Col>
                         </Row>
 
@@ -65,30 +99,13 @@ const NotesUplode = () => {
                                 <Form.Label>Add File</Form.Label>
                             </Col>
                             <Col xs={8}>
-                                <Form.Control type="file" />
+                                <Form.Control name="uploadFile" type="file" />
                             </Col>
                         </Row>
 
-                        {/* <Form>
-                            {['radio'].map((type) => (
+                       
 
-                                <div key={`default-${type}`}>
-                                    <Form.Check
-
-                                        type={type}
-                                        id={`default-${type}`}
-                                        label={'Public'}
-                                    />
-                                    <Form.Check
-                                        type={type}
-                                        id={`default-${type}`}
-                                        label={'Private'}
-                                    />
-                                </div>
-                            ))}
-                        </Form> */}
-
-                        <div className="radio_grp">
+                        {/* <div className="radio_grp">
                             <div class="form-check" style={{ margin: '.5rem', }}>
                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
                                 <label class="form-check-label" for="flexRadioDefault1">
@@ -102,10 +119,10 @@ const NotesUplode = () => {
                                     Private
                                 </label>
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="d-grid gap-2">
-                            <Button variant="outline-success" size="lg" type='submit'>Uplode</Button>
+                            <Button variant="outline-success" size="lg" type='submit' >Uplode</Button>
                         </div>
 
                     </Form>
