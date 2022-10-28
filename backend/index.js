@@ -56,7 +56,10 @@ app.post("/sign-in", async (req, res) => {
         res.status({ error: error });
     }
 });
+
+
 // --------------------------------- Note Upload---------------------------------
+
 var noteStorage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'public/notes')
@@ -102,6 +105,7 @@ app.get("/allNotes", async (req, res) => {
 
 
 //  ------------------ database connection -----------------------------------------
+
 const PORT = 3001;
 
 const url = "mongodb+srv://Bishwajit:bishwajitsam@studiousrepo.z4evxkf.mongodb.net/?retryWrites=true&w=majority";
@@ -110,7 +114,6 @@ const connectionParams = {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }
-
 
 mongoose.connect(url, connectionParams)
     .then(() => app.listen(PORT, () => (
