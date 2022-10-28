@@ -19,12 +19,11 @@ const HomeCard = () => {
                         <Card >
                             <Card.Img variant="top" src={require('../images/card_file.png')} />
                             <Card.Body>
-                                <Card.Title>Card Title 1</Card.Title>
+                                <Card.Title>Explore</Card.Title>
                                 <Card.Text>
-                                    Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.
+                                    Explore the vast information/knowledge in the notes section and refer to the best information of all.
                                 </Card.Text>
-                                <Button>Go somewhere</Button>
+                                <Button href="/notes">Explore</Button>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -34,12 +33,11 @@ const HomeCard = () => {
                         <Card >
                             <Card.Img variant="top" src={require('../images/card_signIU.png')} />
                             <Card.Body>
-                                <Card.Title>Card Title 2</Card.Title>
+                                <Card.Title>Sign Up</Card.Title>
                                 <Card.Text>
-                                    Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.
+                                    Sign up to unlock various features and share your write-up and access notes with the community.
                                 </Card.Text>
-                                <Button>Go somewhere</Button>
+                                <Button href="/sign-in">Sign Up</Button>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -48,12 +46,11 @@ const HomeCard = () => {
                         <Card >
                             <Card.Img variant="top" src={require('../images/card_uplode.png')} />
                             <Card.Body>
-                                <Card.Title>Card Title 3</Card.Title>
+                                <Card.Title>Upload</Card.Title>
                                 <Card.Text>
-                                    Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.
+                                    Simple and user-friendly UI to upload notes into the community feed section. Share among the vast community .
                                 </Card.Text>
-                                <Button>Go somewhere</Button>
+                                <Button href="/notes-uplode">Upload</Button>
                             </Card.Body>
                         </Card>
                     </Col>
