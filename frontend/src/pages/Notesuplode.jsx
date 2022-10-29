@@ -31,12 +31,15 @@ const NotesUplode = () => {
         const {
             fileName,
             description,
+            branch,
             uploadFile
         } = event.target;
 
         const data = new FormData();
+        console.log(branch.value)
         data.append("UserID", loggedInUser._id);
         data.append("fileName", fileName.value);
+        data.append("branch", branch.value)
         data.append("description", description.value);
         data.append("uploadFile", uploadFile.files[0]);
         try {
@@ -82,6 +85,15 @@ const NotesUplode = () => {
                             </Col>
                             <Col xs={8}>
                                 <Form.Control type="text" name="fileName" placeholder="Enter file name" />
+                            </Col>
+                        </Row>
+
+                        <Row>
+                            <Col>
+                                <Form.Label>Branch</Form.Label>
+                            </Col>
+                            <Col xs={8}>
+                                <Form.Control type="text" name="branch" placeholder="Enter branch" />
                             </Col>
                         </Row>
 

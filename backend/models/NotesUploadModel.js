@@ -9,6 +9,9 @@ const NotesUploadSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    branch: {
+        type: String
+    },
     description: {
         type: String
     },

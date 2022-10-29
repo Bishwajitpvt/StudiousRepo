@@ -74,9 +74,10 @@ const noteUpload = multer({ storage: noteStorage })
 app.post("/noteUpload", noteUpload.single("uploadFile"), async (req, res) => {
     console.log("Incoming Request");
     try {
-        const { UserID, fileName, description } = req.body;
+        const { UserID, fileName, branch, description } = req.body;
+        console.log(branch);
         const uploadFile = req.file ? `${req.protocol}://${req.get('host')}/${req.file.path}` : "";;
-        const note = await NotesUploadModel.create({ UserID, fileName, description, uploadFile });
+        const note = await NotesUploadModel.create({ UserID, fileName, description, uploadFile, branch });
         if (note) {
             res.status(200).json(note);
         } else {
@@ -92,6 +93,20 @@ app.post("/noteUpload", noteUpload.single("uploadFile"), async (req, res) => {
 app.get("/allNotes", async (req, res) => {
     try {
         const NoteArray = await NotesUploadModel.find({});
+        if (NoteArray) {
+            res.status(200).json(NoteArray);
+        } else {
+            throw "something went wrong while fetching notes";
+        }
+    } catch (error) {
+        console.log("/allNotes", error);
+        res.status(400).json(error);
+    }
+});
+
+app.get("/notes/:branch", async (req, res) => {
+    try {
+        const NoteArray = await NotesUploadModel.find(req.params);
         if (NoteArray) {
             res.status(200).json(NoteArray);
         } else {

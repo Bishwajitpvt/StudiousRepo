@@ -6,6 +6,7 @@ import Notes from './pages/Notes';
 import NotesUplode from './pages/Notesuplode';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import Profile from './pages/Profile';
 
 // bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Home />}> </Route>
           <Route path="/notes" element={<Notes />}> </Route>
           <Route path="/notes-uplode" element={<NotesUplode />}> </Route>
+          <Route path="/profile" element={<Profile />}> </Route>
           <Route path='/sign-up' element={<Register />}> </Route>
           <Route path='/sign-in' element={<Login />}> </Route>
           
