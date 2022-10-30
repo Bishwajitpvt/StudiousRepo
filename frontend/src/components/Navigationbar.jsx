@@ -37,7 +37,7 @@ const Navigationbar = () => {
                                 ? <Button variant="outline-success me-2" onClick={() => {
                                     document.cookie = 'loggedIn=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                                     window.location = "/sign-in";
-                                }} className='logout'>Logout</Button>
+                                }} className='logout btn-outline-danger'>Logout</Button>
                                 : <div className="container-flex m-1">
                                         <Button variant="outline-success me-2" href="/sign-in" className='signIn'>Sign in</Button>
                                         <Button variant="outline-secondary me-2" href='/sign-up'>Sign up</Button>
