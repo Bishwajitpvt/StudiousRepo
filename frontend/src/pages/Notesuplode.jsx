@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 // import { MDBRadio } from 'mdb-react-ui-kit';
 
@@ -10,9 +10,9 @@ import '../style/Notesuplode.css';
 
 const NotesUplode = () => {
 
-    function extractCookieByName(name, cookie){
+    function extractCookieByName(name, cookie) {
         let cookieArray = cookie.split("; ");
-        let fliteredArray  = cookieArray.filter(ck => ck.indexOf(name) >= 0);
+        let fliteredArray = cookieArray.filter(ck => ck.indexOf(name) >= 0);
         let keyValue = fliteredArray[0].split("=");
         return keyValue[1];
     }
@@ -27,7 +27,7 @@ const NotesUplode = () => {
 
     const handleOnSubmit = async (event) => {
         event.preventDefault();
-        alert("working")
+        alert("Uploded")
         const {
             fileName,
             description,
@@ -59,18 +59,18 @@ const NotesUplode = () => {
 
 
         // main body ---------------------
-        <div className="notes_uplode_body">
+        <div className="notes_uplode_body" style={{backgroundColor: '#161623', height:'100vh'}}>
 
-            <div className="main_container">
+            <div className="main_container mt-5 pt-5" style={{position:'relative'}}>
 
-                <Card className="uplode_card">
+                <Card className="uplode_card " >
                     <Container className="ntup_header">
                         <Row>
                             <Col sm={8}>
                                 <Card.Title style={{ fontSize: '2rem', fontWeight: '600' }}>Uplode Document</Card.Title>
                             </Col>
                             <Col sm={4}>
-                                <Button variant="outline-success" style={{  }} onClick={handleClick}><FontAwesomeIcon icon={faPlus} />
+                                <Button variant="outline-success" style={{}} onClick={handleClick}><FontAwesomeIcon icon={faXmark} />
                                 </Button>
                             </Col>
                         </Row>
@@ -115,7 +115,7 @@ const NotesUplode = () => {
                             </Col>
                         </Row>
 
-                       
+
 
                         {/* <div className="radio_grp">
                             <div class="form-check" style={{ margin: '.5rem', }}>

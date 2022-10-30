@@ -5,7 +5,12 @@
 /.pnp
 .pnp.js
 
+
+
 /public/notes
+/public/profile
+
+
 
 # testing
 /coverage

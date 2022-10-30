@@ -32,6 +32,7 @@ const Login = () => {
             console.log(ResJson);
             document.cookie = "loggedIn=" + JSON.stringify(ResJson);
             alert("Logged In");
+             window.location = "/";
         } else {
             const resJson = await loginResponse.json();
             console.log(resJson.error);
@@ -86,9 +87,9 @@ const Login = () => {
                                             <p className="signup_txt text-center"><hr />
                                                 Already registered ??<a href="/sign-up" className="ms-2">sign up</a>
                                             </p>
-                                            <p className="signup_txt text-center">
+                                            {/* <p className="signup_txt text-center">
                                                 <a href="/forgot-password">Forgot Password</a>
-                                            </p>
+                                            </p> */}
 
                                         </form>
                                     </div>

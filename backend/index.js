@@ -1,12 +1,14 @@
 import express, { json } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import UserModel from "./models/UserModel.js";
+// import UserModel from "./models/UserModel.js";
 import multer from "multer";
 import { fileURLToPath } from 'url';
 import path from "path"
 import { dirname } from "path";
 import NotesUploadModel from "./models/NotesUploadModel.js";
+import UserModel from "./models/UserModel.js";
+
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = dirname(__filename);
@@ -58,6 +60,26 @@ app.post("/sign-in", async (req, res) => {
 });
 
 
+var profileImageStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/profile')
+    },
+    filename: function (req, file, cb) {
+        console.log("Inside multer", req.body);
+        cb(null, Date.now() + path.extname(file.originalname))
+    }
+});
+const profilePictureUpload = multer({ storage: profileImageStorage })
+
+app.post("/update-profile", profilePictureUpload.single("profilePicture"), async (req, res) => {
+    const { UserID, phone } = req.body;
+    console.log(req.file);
+    const profilePicture = req.file ? `${req.protocol}://${req.get('host')}/${req.file.path}` : "";
+    const user = await UserModel.updateOne({ UserID, phone, profilePicture });
+    console.log(user);
+})
+
+
 // --------------------------------- Note Upload---------------------------------
 
 var noteStorage = multer.diskStorage({
@@ -68,7 +90,7 @@ var noteStorage = multer.diskStorage({
         console.log("Inside multer", req.body);
         cb(null, req.body.fileName + Date.now() + path.extname(file.originalname))
     }
-})
+});
 const noteUpload = multer({ storage: noteStorage })
 
 app.post("/noteUpload", noteUpload.single("uploadFile"), async (req, res) => {
@@ -76,7 +98,7 @@ app.post("/noteUpload", noteUpload.single("uploadFile"), async (req, res) => {
     try {
         const { UserID, fileName, branch, description } = req.body;
         console.log(branch);
-        const uploadFile = req.file ? `${req.protocol}://${req.get('host')}/${req.file.path}` : "";;
+        const uploadFile = req.file ? `${req.protocol}://${req.get('host')}/${req.file.path}` : "";
         const note = await NotesUploadModel.create({ UserID, fileName, description, uploadFile, branch });
         if (note) {
             res.status(200).json(note);
@@ -116,6 +138,23 @@ app.get("/notes/:branch", async (req, res) => {
         console.log("/allNotes", error);
         res.status(400).json(error);
     }
+});
+
+app.get("/user/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await UserModel.findById(id);
+        const count = await NotesUploadModel.countDocuments({ UserID: id });
+        user._doc.count = count;
+        if (user) {
+            res.status(200).json(user);
+        } else {
+            throw "user does not exists";
+        }
+    } catch (error) {
+        res.status(404).json(error);
+    }
+
 });
 
 

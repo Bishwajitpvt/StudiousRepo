@@ -1,7 +1,5 @@
 import React from 'react'
 
-
-
 const FileStructure = (props) => {
     // const download = async () => {
     //       fetch(props.uploadFIle).then(response => {
@@ -17,11 +15,22 @@ const FileStructure = (props) => {
     //     })
     // }
    return(
-        <div class="card" style={{marginTop:'100px'}}>
-           <h5 class="card-header">{ props.fileName}</h5>
-            <div class="card-body">
-               <h5 class="card-title">{props.branch}</h5>
-               <p class="card-text">{ props.description}</p>
+       <div class="card" style={{ marginTop: '1rem'}}>
+           
+           <h5 class="card-header">
+               File Name : {props.fileName}
+           </h5>
+           
+           <div class="card-body">
+               
+               <h5 class="card-title">
+                   Branch : {props.branch}
+               </h5>
+
+               <h5 class="card-text">
+                   Description : {props.description}
+               </h5>
+
             <a href={props.uploadFile} target="_blank" class="btn btn-primary" download="a.pdf">download</a>
  
             </div>

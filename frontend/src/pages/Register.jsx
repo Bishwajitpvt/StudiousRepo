@@ -126,7 +126,7 @@ const Register = (props) => {
                                         <p className="signin text-center"><hr />
                                             Already registered <a href="/sign-in">sign in?</a>
                                         </p>
-                                        <h6 className="forgot-password text-center"><a href="/forgot-password">Forgot Password</a></h6>
+                                        {/* <h6 className="forgot-password text-center"><a href="/forgot-password">Forgot Password</a></h6> */}
                                     </form>
                                 </div>
                             </div>

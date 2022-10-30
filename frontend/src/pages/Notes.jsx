@@ -13,8 +13,10 @@ import FileStructure from '../components/FileStructure';
 
 
 const Notes = () => {
+
+    // fetching data 
     const [noteArray, setNoteArray] = useState([]);
-    const [branch, setBranch] = useState("All");
+    const [branch, setBranch] = useState("All Notes");
     useEffect(() => {
         const fetchNotes = async () => {
             const response = await fetch("http://localhost:3001/allNotes");
@@ -23,7 +25,7 @@ const Notes = () => {
             setNoteArray(resJson);
         }
         fetchNotes();
-    },[]);
+    }, []);
 
     let navigate = useNavigate();
 
@@ -31,12 +33,13 @@ const Notes = () => {
         navigate("/notes-uplode")
     }
 
+    // sort function
     async function filterBranch(e) {
         setBranch(e.target.innerText);
-            const response = await fetch("http://localhost:3001/notes/"+e.target.innerText.toLowerCase());
-            const resJson = await response.json();
-            console.log(resJson);
-            setNoteArray(resJson);
+        const response = await fetch("http://localhost:3001/notes/" + e.target.innerText.toLowerCase());
+        const resJson = await response.json();
+        console.log(resJson);
+        setNoteArray(resJson);
     }
 
     return (
@@ -65,22 +68,20 @@ const Notes = () => {
 
                         {/* search bar */}
                         <div className='container'>
-                            <Form className="d-flex">
-                                <Form.Control
+                            <Form className="d-flex ms-auto ">
+                                {/* <Form.Control
                                     type="search"
                                     placeholder="Search"
                                     className="me-2"
                                     aria-label="Search"
                                 />
-                                <Button variant="outline-success">Search</Button>
+                                <Button variant="outline-success">Search</Button> */}
 
-                                <div className='add_sec'>
+                                <div className='add_sec ms-auto float-right'>
                                     <Button variant="outline-success" onClick={handleClick}><FontAwesomeIcon icon={faPlus} />
                                     </Button>
                                 </div>
                             </Form>
-
-
                         </div>
 
                         {/* sort section ------------------------------------------------ */}
@@ -96,28 +97,26 @@ const Notes = () => {
                 </Navbar>
             </div>
 
-            
+
             {/*  ------------- display notes ---------- */}
-            <div>
-                <h1>{branch}</h1>
-                <Container>
-                    {
-                        noteArray.map(note => {
-                            return <FileStructure
-                                fileName={note.fileName}
-                                description={note.description}
-                                uploadFile={note.uploadFile}
-                                branch={note.branch}
-                            />
-                        })
-                    }
-                    
-                </Container>
+            <div style={{ backgroundColor: '#161623', height: '100%' }}>
+                <div className='display_notes' >
+                    <h1 className='branch_text'> {branch} </h1>
+                    <div className='container file_structure'>
+                        {
+                            noteArray.map(note => {
+                                return <FileStructure
+                                    fileName={note.fileName}
+                                    description={note.description}
+                                    uploadFile={note.uploadFile}
+                                    branch={note.branch}
+                                />
+                            })
+                        }
+
+                    </div>
+                </div>
             </div>
-
-            
-
-
 
         </>
     );

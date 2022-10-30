@@ -18,6 +18,12 @@ const UserSchema = new mongoose.Schema({
         type: "String",
         required: [true, "Password is required"],
         minlength: [8, "Minimum 8 length required"]
+    },
+    profilePicture: {
+        type: "string",
+    },
+    phone: {
+        type: "String",
     }
 });
 
