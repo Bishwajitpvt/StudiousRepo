@@ -49,6 +49,14 @@ const Footer = () => {
                             <p>
                                 Help Students to have impact within the community they are part of.
                             </p>
+
+                            <h6 className='text-uppercase fw-bold mb-3'>
+                                {/* <MDBIcon icon="gem" className="me-3" /> */}
+                                Team Members
+                            </h6>
+                            <p>
+                                Bishwajit , Aniruddha , Nishant , Raj
+                            </p>
                         </MDBCol>
 
                         
