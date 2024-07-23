@@ -11,3 +11,12 @@
 
 # Sign-Up
 ![signup](https://user-images.githubusercontent.com/77453811/194935176-1c887ba9-265a-4029-a025-0c8ef0c23644.JPG)
+
+# Notes Section
+![all notes](https://github.com/user-attachments/assets/fcd9534f-473f-4b65-a5eb-8e93349c714c)
+
+# Uplode Notes Section
+![uplode notes](https://github.com/user-attachments/assets/07c4b38b-d226-4124-ab9d-18ad9be5b0b0)
+
+# Profile Section
+![profiile](https://github.com/user-attachments/assets/7ae1aefd-aab5-4ad3-9581-6d1fb519ee7f)
